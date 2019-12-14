@@ -2,9 +2,9 @@
   "name": "pomoguru",
   "version": "1.0.0",
   "description": "Pomoguru hackaton app",
-  "main": "slack.js",
+  "main": "main.js",
   "scripts": {
-    "test": "yarn test"
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
@@ -15,8 +15,8 @@
   ],
   "author": "Robert Raimann Dawid Janiga Robert Kostrzewski",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/netguru-hackathon/pomoguru/issues"
+  "devDependencies": {
+    "electron": "^7.1.4"
   },
   "homepage": "https://github.com/netguru-hackathon/pomoguru#readme",
   "dependencies": {
