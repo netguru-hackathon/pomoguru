@@ -1,0 +1,12 @@
+.content {
+    margin: auto;
+    text-align: center;
+}
+
+.timeLeft {
+    font-size: 60px;
+}
+
+.hidden {
+    display: none;
+}
