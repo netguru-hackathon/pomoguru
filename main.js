@@ -1,5 +1,7 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, TouchBar } = require('electron')
+const { TouchBarScrubber } = TouchBar
+
 const path = require('path')
 const debug = require('debug')('pomoguru')
 
@@ -33,11 +35,59 @@ function createWindow() {
   })
 }
 
+function createTouchbar() {
+  const progressBarItems = (progress) => {
+    const blacks = progress * 170;
+    const reds = (1 - progress) * 170;
+
+    const items = [];
+
+    for (i=0; i < blacks; i++) {
+      items.push(
+        {
+          icon: 'black.png',
+        }
+      );
+      items.push(
+        {
+          icon: 'spacer.png',
+        }
+      );
+    }
+
+    for (i=0; i < reds; i++) {
+      items.push(
+        {
+          icon: 'red.png',
+        }
+      );
+      items.push(
+        {
+          icon: 'spacer.png',
+        }
+      );
+    }
+
+    return items;
+  }
+
+  const scrubber = new TouchBarScrubber({
+    items: progressBarItems(0.25),
+		selectedStyle: 'outline',
+    mode: 'free',
+		continuous: false,
+  });
+
+  const touchbar = new TouchBar({ items: [scrubber] });
+  mainWindow.setTouchBar(touchbar);
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   createWindow()
+  createTouchbar()
 })
 
 // Quit when all windows are closed.
