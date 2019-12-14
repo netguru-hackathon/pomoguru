@@ -1,6 +1,6 @@
 const SlackClient = require('@slack/client');
 
-const token = 'xoxp-866674528645-868873391222-873737919941-b9656877dead8dc8d30214c8459de312';
+const token = process.env.SLACK_TOKEN;
 
 function createSlackClientWrapper() {
     const client = new SlackClient.WebClient(token);
