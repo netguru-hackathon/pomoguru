@@ -2,6 +2,8 @@
 const { app, BrowserWindow, TouchBar } = require('electron')
 const { TouchBarScrubber } = TouchBar
 
+const { ipcMain } = require('electron')
+
 const path = require('path')
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -34,6 +36,12 @@ function createWindow() {
     mainWindow = null
   })
 }
+
+ipcMain.on('time-change', (event, arg) => {
+  // console.log(arg) // prints "ping"
+  // event.reply('asynchronous-reply', 'pong')
+  touchBar.setValue(arg)
+})
 
 function createTouchbar() {
   function setValue(progress) {
@@ -91,7 +99,7 @@ function createTouchbar() {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   createWindow()
-  createTouchbar().setValue(0.25)
+  touchBar = createTouchbar()
 })
 
 // Quit when all windows are closed.
