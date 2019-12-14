@@ -18,9 +18,4 @@ function createSlackClientWrapper() {
     return { focusStart, focusEnd };
 }
 
-(async () => {
-    const wrapper = createSlackClientWrapper();
-    await wrapper.focusStart();
-})();
-
 module.exports = createSlackClientWrapper;

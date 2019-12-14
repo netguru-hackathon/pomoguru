@@ -1,3 +1,5 @@
+const createSlack = require('./slack')
+
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
 window.addEventListener('DOMContentLoaded', () => {
@@ -10,9 +12,11 @@ window.addEventListener('DOMContentLoaded', () => {
     replaceText(`${type}-version`, process.versions[type])
   }
 
-  const slack = {}
+  const slack = createSlack()
+  const timer = createTimer()
   const pomodoro = createPomodoro({
-    slack
+    slack,
+    timer
   })
 })
 
@@ -44,9 +48,10 @@ function createTimer() {
 
   function tickInterval() {
     changeTime(timeLeft - 1)
-    console.log('Time left', timeLeft)
+
     if (timeLeft === 0) {
       console.log('Pomodoro ends')
+      stop()
     }
   }
 
@@ -75,29 +80,29 @@ function createTimer() {
   }
 }
 
-function createPomodoro() {
+function createPomodoro({
+  slack,
+  timer
+}) {
   const startButton = document.querySelector('#start')
   const pauseButton = document.querySelector('#pause')
   const stopButton = document.querySelector('#stop')
   const timeLeftElement = document.querySelector('#timeLeft')
-  const timer = createTimer()
-  // const slack = createSlack()
-
   console.log('create Pomodoro')
 
   startButton.addEventListener('click', () => {
     timer.start()
-    // slack.focusStart()
+    slack.focusStart()
   })
 
   pauseButton.addEventListener('click', () => {
     timer.pause()
-    // slack.focusEnd()
+    slack.focusEnd()
   })
 
   stopButton.addEventListener('click', () => {
     timer.stop()
-    // slack.focusEnd()
+    slack.focusEnd()
   })
 
   timer.onTimeChange(timeLeft => {
@@ -107,7 +112,6 @@ function createPomodoro() {
   function formatTime(timeInSeconds) {
     const minutes = Math.floor(timeInSeconds / 60)
     const seconds = timeInSeconds % 60
-    console.log(minutes)
     return `${minutes}:${addLeadingZero(seconds)}`
   }
 
