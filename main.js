@@ -8,6 +8,7 @@ const debug = require('debug')('pomoguru')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let touchBar
 
 function createWindow() {
   // Create the browser window.
@@ -82,6 +83,8 @@ function createTouchbar() {
     const touchbar = new TouchBar({ items: [scrubber] });
     mainWindow.setTouchBar(touchbar);
   }
+
+  return { setValue }
 }
 
 // This method will be called when Electron has finished
@@ -89,7 +92,7 @@ function createTouchbar() {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   createWindow()
-  global.touchbar = createTouchbar()
+  createTouchbar().setValue(0.25)
 })
 
 // Quit when all windows are closed.

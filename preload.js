@@ -2,7 +2,6 @@ const createSlack = require('./slack')
 
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
-let touchbar
 
 window.addEventListener('DOMContentLoaded', () => {
   const slack = createSlack()
@@ -11,8 +10,6 @@ window.addEventListener('DOMContentLoaded', () => {
     slack,
     timer
   })
-
-  touchbar = remote.getGlobal('touchbar')
 });
 
 
@@ -76,7 +73,8 @@ function createTimer() {
     start,
     pause,
     stop,
-    onTimeChange
+    onTimeChange,
+    getTimeLeft,
   }
 }
 
@@ -116,8 +114,6 @@ function createPomodoro({
 
   timer.onTimeChange(({ timeLeft, progress }) => {
     setTimeLeft(timeLeft)
-    // touchbar.setValue(progress)
-    touchbar.setValue(progress)
   })
 
   function setTimeLeft(value) {
