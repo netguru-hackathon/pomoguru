@@ -1,3 +1,5 @@
+const path = require('path')
+const notifier = require('node-notifier');
 const createSlack = require('./slack')
 
 // All of the Node.js APIs are available in the preload process.
@@ -43,6 +45,11 @@ function createTimer() {
     if (timeLeft === 0) {
       console.log('Pomodoro ends')
       stop()
+      notifier.notify({
+        title: 'PomoGuru',
+        icon: path.join(__dirname, 'icon.png'),
+        message: 'Great job! Now take a break :)'
+      });
     }
   }
 
@@ -95,6 +102,11 @@ function createPomodoro({
     showElement(pauseButton)
     timer.start()
     slack.focusStart()
+    notifier.notify({
+      title: 'PomoGuru',
+      icon: path.join(__dirname, 'icon.png'),
+      message: 'All set! Focus time is on'
+    })
   })
 
   pauseButton.addEventListener('click', () => {
@@ -109,6 +121,11 @@ function createPomodoro({
     showElement(startButton)
     timer.stop()
     slack.focusEnd()
+    notifier.notify({
+      title: 'PomoGuru',
+      icon: path.join(__dirname, 'icon.png'),
+      message: 'Notifications turned on'
+    });
   })
 
   timer.onTimeChange(({ timeLeft, progress }) => {
