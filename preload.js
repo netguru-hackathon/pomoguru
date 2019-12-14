@@ -55,7 +55,8 @@ function createTimer() {
     timeLeft = value
 
     if (onTimeChangeListener) {
-      onTimeChangeListener(timeLeft)
+      const progress = 1 - (timeLeft / onePomodoroInSeconds)
+      onTimeChangeListener({ timeLeft, progress })
     }
   }
 
@@ -110,8 +111,9 @@ function createPomodoro({
     slack.focusEnd()
   })
 
-  timer.onTimeChange(timeLeft => {
+  timer.onTimeChange(({ timeLeft, progress }) => {
     setTimeLeft(timeLeft)
+    // touchbar.setValue(progress)
   })
 
   function setTimeLeft(value) {
