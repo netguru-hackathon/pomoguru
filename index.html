@@ -6,15 +6,19 @@
   <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
   <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-  <title></title>
+  <link href="./ant.min.css" rel="stylesheet" type="text/css" />
+  <link href="./style.css" rel="stylesheet" type="text/css" />
+  <title>PomoGuru</title>
 </head>
 
 <body>
-  <h1>PomoGuru</h1>
-  <button id="start">Start</button>
-  <button id="pause">Pause</button>
-  <button id="stop">Stop</button>
-  <h2 id="timeLeft"></h2>
+  <div class="ant-modal-header">PomoGuru 🍅</div>
+  <div class="content">
+    <h2 class="timeLeft" id="timeLeft"></h2>
+    <button class="ant-btn" id="start">Start</button>
+    <button class="ant-btn" id="pause">Pause</button>
+    <button class="ant-btn" id="stop">Stop</button>
+  </div>
   <script src="./renderer.js"></script>
 </body>
 
