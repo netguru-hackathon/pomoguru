@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function createTimer() {
   const oneSecond = 1000
-  const onePomodoroInSeconds = 25 * 60
+  const onePomodoroInSeconds = 2 * 60
   let timerHandler
   let timeLeft = onePomodoroInSeconds
   let onTimeChangeListener
