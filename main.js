@@ -89,6 +89,7 @@ function createTouchbar() {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   createWindow()
+  global.touchbar = createTouchbar()
 })
 
 // Quit when all windows are closed.
