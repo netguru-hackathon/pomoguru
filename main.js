@@ -36,50 +36,52 @@ function createWindow() {
 }
 
 function createTouchbar() {
-  const progressBarItems = (progress) => {
-    const blacks = progress * 170;
-    const reds = (1 - progress) * 170;
+  function setValue(progress) {
+    const progressBarItems = (progress) => {
+      const blacks = progress * 170;
+      const reds = (1 - progress) * 170;
 
-    const items = [];
+      const items = [];
 
-    for (i=0; i < blacks; i++) {
-      items.push(
-        {
-          icon: 'black.png',
-        }
-      );
-      items.push(
-        {
-          icon: 'spacer.png',
-        }
-      );
+      for (i = 0; i < blacks; i++) {
+        items.push(
+          {
+            icon: 'black.png',
+          }
+        );
+        items.push(
+          {
+            icon: 'spacer.png',
+          }
+        );
+      }
+
+      for (i = 0; i < reds; i++) {
+        items.push(
+          {
+            icon: 'red.png',
+          }
+        );
+        items.push(
+          {
+            icon: 'spacer.png',
+          }
+        );
+      }
+
+      return items;
     }
 
-    for (i=0; i < reds; i++) {
-      items.push(
-        {
-          icon: 'red.png',
-        }
-      );
-      items.push(
-        {
-          icon: 'spacer.png',
-        }
-      );
-    }
+    const scrubber = new TouchBarScrubber({
+      items: progressBarItems(progress),
+      selectedStyle: 'outline',
+      mode: 'free',
+      continuous: false,
+    });
 
-    return items;
+    const touchbar = new TouchBar({ items: [scrubber] });
+    mainWindow.setTouchBar(touchbar);
   }
-
-  const scrubber = new TouchBarScrubber({
-    items: progressBarItems(0.25),
-		selectedStyle: 'outline',
-    mode: 'free',
-		continuous: false,
-  });
-
-  const touchbar = new TouchBar({ items: [scrubber] });
-  mainWindow.setTouchBar(touchbar);
 }
 
 // This method will be called when Electron has finished
@@ -87,7 +89,6 @@ function createTouchbar() {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   createWindow()
-  createTouchbar()
 })
 
 // Quit when all windows are closed.
