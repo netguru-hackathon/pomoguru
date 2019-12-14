@@ -4,7 +4,8 @@
   "description": "Pomoguru hackaton app",
   "main": "main.js",
   "scripts": {
-    "start": "yarn install; while read LINE; do export \"$LINE\"; done < ./.env; electron ."
+    "start": "yarn install; while read LINE; do export \"$LINE\"; done < ./.env; electron .",
+    "test-slack": "yarn install; while read LINE; do export \"$LINE\"; done < ./.env; node slack.js"
   },
   "repository": {
     "type": "git",
