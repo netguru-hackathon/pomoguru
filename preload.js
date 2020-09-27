@@ -2,8 +2,6 @@ const path = require('path')
 const notifier = require('node-notifier');
 const createSlack = require('./slack')
 
-const { ipcRenderer } = require('electron')
-
 // All of the Node.js APIs are available in the preload process.
 // It has the same sandbox as a Chrome extension.
 
@@ -133,7 +131,6 @@ function createPomodoro({
 
   timer.onTimeChange(({ timeLeft, progress }) => {
     setTimeLeft(timeLeft)
-    ipcRenderer.send('time-change', progress)
   })
 
   function setTimeLeft(value) {
