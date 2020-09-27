@@ -1,8 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, TouchBar } = require('electron')
-const { TouchBarScrubber } = TouchBar
-
-const { ipcMain } = require('electron')
+const { app, BrowserWindow } = require('electron')
 
 const path = require('path')
 
@@ -36,12 +33,6 @@ function createWindow() {
     mainWindow = null
   })
 }
-
-ipcMain.on('time-change', (event, arg) => {
-  // console.log(arg) // prints "ping"
-  // event.reply('asynchronous-reply', 'pong')
-  touchBar.setValue(arg)
-})
 
 function createTouchbar() {
   function setValue(progress) {
