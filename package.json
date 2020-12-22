@@ -22,6 +22,6 @@
   "homepage": "https://github.com/netguru-hackathon/pomoguru#readme",
   "dependencies": {
     "@slack/client": "^5.0.2",
-    "node-notifier": "^6.0.0"
+    "node-notifier": "^8.0.1"
   }
 }
